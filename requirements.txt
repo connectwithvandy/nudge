@@ -1,0 +1,12 @@
+# Upper bounds on purpose: an unpinned major release that silently changed FastAPI's startup
+# behaviour would stop the snapshot restore from running, and free hosts wipe their disk on
+# every deploy — so the first symptom would be every user's history gone, with nothing in the
+# logs to explain it.
+fastapi>=0.138.1,<1.0
+uvicorn>=0.49.0,<1.0
+python-dotenv>=1.2.2,<2.0
+python-multipart>=0.0.32,<1.0   # the website's form posts
+httpx>=0.28.1,<1.0
+apscheduler>=3.11.3,<4.0
+ollama>=0.6.2,<1.0              # local models for offline development only
+tzdata                          # slim server images ship no timezone database

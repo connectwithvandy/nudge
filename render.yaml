@@ -1,0 +1,31 @@
+# Tells Render how to run Nudge on its free plan.
+services:
+  - type: web
+    name: nudge
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    envVars:
+      # Secrets — paste the values into Render's dashboard, never into the repo.
+      - key: GROQ_API_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_BOT_USERNAME
+        sync: false
+      - key: TELEGRAM_WEBHOOK_SECRET
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      # The cloud snapshot. Without these, a redeploy wipes every user's history.
+      - key: TURSO_DATABASE_URL
+        sync: false
+      - key: TURSO_AUTH_TOKEN
+        sync: false
+      # Who is allowed to sign up.
+      - key: INVITE_CODES
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.12"
